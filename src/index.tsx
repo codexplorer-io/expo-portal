@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import {
     View,
     StyleSheet,
@@ -101,24 +101,18 @@ export interface PortalProps {
     children: React.ReactNode;
 }
 
-let nextPortalId = 0;
-
 export const Portal: React.FC<PortalProps> = ({
     hostName = DEFAULT_PORTAL_HOST,
     children
 }) => {
-    const idRef = useRef<string | null>(null);
-    if (!idRef.current) {
-        nextPortalId += 1;
-        idRef.current = `portal_${nextPortalId}`;
-    }
-    const id = idRef.current;
+    const id = useId();
 
     useEffect(() => {
         portalManager.mount(hostName, id, children);
         return () => {
             portalManager.unmount(hostName, id);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hostName, id]);
 
     useEffect(() => {

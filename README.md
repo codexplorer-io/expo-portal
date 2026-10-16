@@ -109,16 +109,18 @@ export function ScreenWithCustomHost() {
 
 ### `<Portal />`
 
-Teleports its `children` into the designated `PortalHost`.
+Teleports its `children` into the designated `PortalHost`. Returns `null`.
 
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `children` | `ReactNode` | — | Elements to teleport |
+| `children` | `React.ReactNode` | — | Elements to teleport |
 | `hostName` | `string` | `'root'` | Target host name to render inside |
 
 ### `<PortalHost />`
 
-Mounts a destination overlay container for portaled elements.
+Mounts a destination overlay container for portaled elements. Renders `<View style={[StyleSheet.absoluteFill, style]} pointerEvents="box-none" collapsable={false}>`.
+
+> **Note**: `<PortalHost />` is a self-closing component and does **not** accept or render `children`.
 
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
